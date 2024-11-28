@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Time Chat Application - Kuvaka Tech</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="chat-container">
+        <!-- Username input section -->
+        <div id="username-container">
+            <input id="username-input" placeholder="Your Name" />
+            <button id="set-username">Enter into chat</button>
+        </div>
+        <!-- Display username after it's set -->
+        <h2 id="username-heading" style="display: none;"></h2>
+        <!-- Chat messages list -->
+        <ul id="messages"></ul>
+        <!-- Placeholder for when there are no messages -->
+        <div id="no-messages" style="display: none;">No Chats</div>
+        <!-- Message input form -->
+        <form id="chat-form" style="display: none;">
+            <input id="message-input" autocomplete="off" placeholder="Type a message..." />
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        // Initialize Socket.IO
+        const socket = io();
+
+        // Element references
+        const usernameContainer = document.getElementById('username-container');
+        const usernameInput = document.getElementById('username-input');
+        const setUsernameBtn = document.getElementById('set-username');
+        const usernameHeading = document.getElementById('username-heading');
+        const chatForm = document.getElementById('chat-form');
+        const messageInput = document.getElementById('message-input');
+        const messages = document.getElementById('messages');
+        const noMessages = document.getElementById('no-messages');
+
+        // Set username and initialize chat
+        setUsernameBtn.addEventListener('click', () => {
+            const username = usernameInput.value.trim();
+            if (username) {
+                socket.emit('set username', username);
+                usernameContainer.style.display = 'none';
+                chatForm.style.display = 'flex';
+                usernameHeading.textContent = username;
+                usernameHeading.style.display = 'block';
+            }
+        });
+
+        // Send message to server
+        chatForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const message = messageInput.value.trim();
+            if (message) {
+                socket.emit('chat message', message);
+                messageInput.value = '';
+            }
+        });
+
+        // Display incoming messages
+        socket.on('chat message', (msg) => {
+            const newItem = document.createElement('li');
+            newItem.classList.add(msg.startsWith('You:') ? 'sent' : 'received');
+            newItem.textContent = msg;
+            messages.appendChild(newItem);
+            noMessages.style.display = 'none';
+            messages.scrollTop = messages.scrollHeight;
+        });
+
+        // Show "No Chats" if there are no messages
+        function checkNoMessages() {
+            if (messages.children.length === 0) {
+                noMessages.style.display = 'flex';
+            }
+        }
+
+        checkNoMessages();
+    </script>
+</body>
+</html>

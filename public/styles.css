@@ -1,0 +1,197 @@
+/* Base styles for the body */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #200122, #6f0000); /* Gradient background */
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Chat container styling */
+.chat-container {
+    width: 100%;
+    max-width: 600px;
+    background: #EB5757;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 80vh;
+    border: 2px solid #da4804;
+}
+
+/* Styling for the username heading */
+#username-heading {
+    text-align: center;
+    font-size: 28px;
+    color: #0cdbe2;
+    margin-bottom: 20px;
+    font-weight: bold;
+    display: none;
+}
+
+/* Username input container */
+#username-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+#username-input {
+    flex: 1;
+    padding: 12px;
+    border-radius: 25px;
+    border: 2px solid #4CAF50;
+    margin-right: 10px;
+    font-size: 14px;
+    background: #f9f9f9;
+    color: #333;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#username-input:focus {
+    border-color: #FFEB3B;
+    box-shadow: 0 0 10px #FFEB3B;
+}
+
+/* Button styling */
+button {
+    background-color: #FFEB3B;
+    color: #333;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+    background-color: #FFC107;
+    transform: scale(1.05);
+}
+
+/* Styling for the messages area */
+#messages {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+    height: 60%;
+    flex-grow: 1;
+    padding-right: 10px;
+}
+
+/* Message item styling */
+#messages li {
+    padding: 15px 20px;
+    border-radius: 20px;
+    margin: 5px 0;
+    max-width: 80%;
+    position: relative;
+    background-color: #A5D6A7;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    animation: fadeInMessage 0.5s forwards;
+}
+
+/* Sent message styling */
+#messages li.sent {
+    background: #388E3C;
+    color: #fff;
+    margin-left: auto;
+    animation: fadeInMessage 0.5s forwards 0.2s;
+}
+
+/* Received message styling */
+#messages li.received {
+    background: #A5D6A7;
+    color: #333;
+}
+
+/* Decorative dot before received messages */
+#messages li:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background: #FFEB3B;
+    border-radius: 50%;
+    left: -20px;
+}
+
+/* Input field for messages */
+#message-input {
+    flex: 8;
+    padding: 12px;
+    border-radius: 20px;
+    border: 2px solid #4CAF50;
+    background: #f9f9f9;
+    color: #333;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#message-input:focus {
+    border-color: #FFEB3B;
+    box-shadow: 0 0 10px #FFEB3B;
+}
+
+/* The send button for messages */
+#chat-form {
+    display: flex;
+    margin-top: 20px;
+}
+
+#chat-form button {
+    background-color: #FFEB3B;
+    color: #333;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#chat-form button:hover {
+    background-color: #FFC107;
+    transform: scale(1.05);
+}
+
+/* "No Messages Yet" text styling */
+#no-messages {
+    display: none;
+    text-align: center;
+    color: #000000;
+    font-size: 18px;
+    padding: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+}
+
+/* Smooth transition for the chat area */
+#messages {
+    transition: all 0.3s ease-in-out;
+}
+
+/* Keyframes for fade-in animation */
+@keyframes fadeInMessage {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
